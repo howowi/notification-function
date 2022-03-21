@@ -23,6 +23,11 @@ def handler(ctx, data: io.BytesIO = None):
     except (Exception, ValueError) as ex:
         logging.getLogger().info('error parsing json payload: ' + str(ex))
         send_status = 'failed'
+        return response.Response(
+        ctx, response_data=json.dumps({"status": format(send_status), "message_id" : format(ex)}),
+        headers={"Content-Type": "application/json"}
+        )
+        
 
     return response.Response(
         ctx, response_data=json.dumps({"status": format(send_status), "message_id" : format(bot_sendMessage.message_id)}),
