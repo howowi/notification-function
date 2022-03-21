@@ -34,14 +34,18 @@ Keep your token secure and store it safely, it can be used by anyone to control 
 
 ## 3.Send message via fn cli for testing 
 1. Invoke function via fn cli
-> echo -n '{"api_key":"<Bot_Token>", "chat_id":"<Chat_ID or Channel_Name>", "text": "<Your_Message>"}' | fn invoke send-telegram send-telegram
+```
+echo -n '{"api_key":"<Bot_Token>", "chat_id":"<Chat_ID or Channel_Name>", "text": "<Your_Message>"}' | fn invoke send-telegram send-telegram
+```
 
 `Bot_Token`: Refer to step 1.5
 `Channel_Name`: Refer to step 2(a).4
 `Chat_ID`: Refer to step 2(b).5
 
 For example:
-
->echo -n '{"api_key":"5****:AAF******Tw", "chat_id":"-772650973", "text": "How are you doing today?"}' | fn invoke send-telegram send-telegram
-
->echo -n '{"api_key":"5****:AAF******Tw", "chat_id":"@ocitelebot", "text": "How are you doing today?"}' | fn invoke send-telegram send-telegram
+```
+echo -n '{"api_key":"5****:AAF******Tw", "chat_id":"-772650973", "text": "How are you doing today?"}' | fn invoke send-telegram send-telegram
+```
+```
+echo -n '{"api_key":"5****:AAF******Tw", "chat_id":"@ocitelebot", "text": "How are you doing today?"}' | fn invoke send-telegram send-telegram
+```
