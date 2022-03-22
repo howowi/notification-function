@@ -2,17 +2,19 @@ import io
 import json
 import logging
 import telegram
+from datetime import datetime, timezone
 
 from fdk import response
 
 
 def handler(ctx, data: io.BytesIO = None):
     apiKEY = chatID = textMessage = ""
+    datetimeNow = datetime.now(timezone.utc).isoformat(timespec='seconds')
     try:
         body = json.loads(data.getvalue())
         apiKEY = body.get("api_key")
         chatID = body.get("chat_id")
-        textMessage = body.get("text")
+        textMessage = body.get("text")+"\nat "+datetimeNow
 
         tele_bot = telegram.Bot(token=apiKEY)
         bot_sendMessage = tele_bot.send_message(chat_id=chatID, text=textMessage)

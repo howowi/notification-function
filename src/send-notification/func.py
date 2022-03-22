@@ -1,13 +1,13 @@
 import io
 import json
 import logging
+from datetime import datetime, timezone
 import oci
 
 from fdk import response
 
-
 def handler(ctx, data: io.BytesIO = None):
-
+    datetimeNow= datetime.now(timezone.utc).isoformat(timespec='seconds')
     try:
         request_body = json.loads(data.getvalue())
         topicID = request_body.get("topic_id")
@@ -20,7 +20,7 @@ def handler(ctx, data: io.BytesIO = None):
         publish_message_response = ons_client.publish_message(
             topic_id=topicID,
             message_details=oci.ons.models.MessageDetails(
-                body=message,
+                body=message+"\nat "+datetimeNow,
                 title=msgTitle),
             message_type="RAW_TEXT"
         )
