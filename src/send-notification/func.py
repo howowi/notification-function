@@ -13,6 +13,8 @@ def handler(ctx, data: io.BytesIO = None):
         topicID = request_body.get("topic_id")
         message = request_body.get("message")
         msgTitle = request_body.get("title")
+        dashboardURL = request_body.get("url")
+        alertType = request_body.get("alert_type")
         
         signer = oci.auth.signers.get_resource_principals_signer()
         ons_client = oci.ons.NotificationDataPlaneClient(config={},signer=signer)
@@ -20,8 +22,8 @@ def handler(ctx, data: io.BytesIO = None):
         publish_message_response = ons_client.publish_message(
             topic_id=topicID,
             message_details=oci.ons.models.MessageDetails(
-                body=message+"\nat "+datetimeNow,
-                title=msgTitle),
+                body="["+alertType+"] "+message+" at "+datetimeNow+"\n\nPlease view the dashboard via this link "+dashboardURL,
+                title="["+alertType+"] "+msgTitle),
             message_type="RAW_TEXT"
         )
         send_status = 'succeed'

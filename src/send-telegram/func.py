@@ -14,7 +14,9 @@ def handler(ctx, data: io.BytesIO = None):
         body = json.loads(data.getvalue())
         apiKEY = body.get("api_key")
         chatID = body.get("chat_id")
-        textMessage = body.get("text")+"\nat "+datetimeNow
+        dashboardURL = body.get("url")
+        alertType = body.get("alert_type")
+        textMessage = "["+alertType+"] "+body.get("text")+" at "+datetimeNow+" \n\nPlease view the dashboard via this link "+dashboardURL
 
         tele_bot = telegram.Bot(token=apiKEY)
         bot_sendMessage = tele_bot.send_message(chat_id=chatID, text=textMessage)
